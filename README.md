@@ -24,7 +24,12 @@ Universal Downloader is a simple web application built with Flask and `yt-dlp` t
 ![Home Page](screenshots/home.png)
 
 
+
+### 💬 Downloade Progress
 ![Downloaded](screenshots/downloaded.png)
+
+### Mobile Responsiveness
+![Mobile Responsiveness](screenshots/mobile.png)
 
 ### 💬 Feedback Page
 ![Feedback Page](screenshots/feedback.png)
