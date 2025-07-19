@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Universal Downloader</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+  </head>
+  <body>
+    <nav>
+      <div class="navbar">
+        <div class="logo">
+          <h1><a href="#">UniversalDownloader</a></h1>
+        </div>
+        <ul id="above-links" class="pages">
+          <li><a href="{{ url_for('disclaimer') }}">Disclaimer</a></li>
+          <li><a href="{{ url_for('feedback') }}">Feedback</a></li>
+          <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="hero-section">
+      <h1>Universal Video Downloader</h1>
+      <h2>Download Videos from YouTube, Instagram, and Facebook Instantly</h2>
+    </div>
+
+    <div class="input-box">
+      <input
+        id="url"
+        type="text"
+        placeholder="Paste URl to download..."
+        required
+      />
+      <select name="choice" id="choice">
+        <option value="youtube">YouTube</option>
+        <option value="insta">Instagram</option>
+        <option value="facebook">Facebook</option>
+      </select>
+    </div>
+
+    <div class="download-button">
+      <button id="dw-btn" type="submit">
+        <span class="material-symbols-outlined">download</span> Download Now
+      </button>
+    </div>
+    <div class="loading">
+      <h3 id="message"></h3>
+    </div>
+
+    <ul id="below-links" class="pages">
+      <li><a href="{{ url_for('disclaimer') }}">Disclaimer</a></li>
+      <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+      <li><a href="{{ url_for('feedback') }}">Feedback</a></li>
+    </ul>
+    <footer>
+      <p>
+        &#9888; This tool is for personal and educational use only. Downloading
+        copyrighted content without permission is strictly prohibited.
+      </p>
+      <p>Built with &hearts; by Yasir Imran | Full Stack Developer in Progress</p>
+    </footer>
+
+    <script>
+      document.getElementById("dw-btn").addEventListener("click", async () => {
+        const url = document.getElementById("url").value;
+        const choice = document.getElementById("choice").value;
+        const loading = document.getElementById("message");
+
+        if (!url) {
+          loading.textContent = "Please paste a video URL.";
+          loading.style.color = "red";
+          return;
+        } else {
+          loading.textContent = "Downloading...";
+          loading.style.color = "green";
+        }
+        try {
+          const response = await fetch("/download", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url, choice }),
+          });
+
+          if (response.headers.get("Content-Disposition")) {
+            const blob = await response.blob();
+            const a = document.createElement("a");
+            a.href = window.URL.createObjectURL(blob);
+            a.download = "video.mp4";
+            a.click();
+            loading.textContent = "Download Completed!";
+          } else {
+            const result = await response.json();
+            loading.textContent = result.error || "Download failed.";
+            loading.style.color = "red";
+          }
+        } catch (err) {
+          loading.textContent = "An error occurred.";
+          console.error(err);
+        }
+      });
+    </script>
+  </body>
+</html>

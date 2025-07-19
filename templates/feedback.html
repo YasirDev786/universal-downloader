@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback - Universal Downloader</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <section>
+      <div class="container-box">
+        <h1>Feedback</h1>
+        <p>
+          <strong>Universal Downloader</strong> is a web application that helps
+          users download videos from YouTube, Instagram, and Facebook.
+        </p>
+        <p>
+          It uses <strong>yt-dlp</strong> with a Flask (Python) backend and a
+          responsive frontend built with HTML/CSS/JavaScript.
+        </p>
+        <h1>We'd Love Your Feedback</h1>
+    <p>Your suggestions help us improve Universal Downloader. Let us know what you think!</p>
+
+
+{% if message %}
+  <p style="color: green; font-weight: bold;  margin: 1rem;">{{ message }}</p>
+{% endif %}
+
+    <form class="feedback-form" method="POST" action="/submit-feedback">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" rows="5" placeholder="Your Feedback" required></textarea>
+      <button class="submit" type="submit">Submit Feedback</button>
+    </form>
+    </section>
+    <footer>
+      <p>&copy; 2025 Universal Downloader. All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>
