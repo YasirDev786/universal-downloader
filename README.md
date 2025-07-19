@@ -52,18 +52,15 @@ Universal Downloader is a simple web application built with Flask and `yt-dlp` t
    cd universal-downloader
 Create a virtual environment:
 
-bash
-Copy
-Edit
-python -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
+     ```bash
+     python -m venv venv
+     source venv/bin/activate   # On Windows: venv\Scripts\activate
+
 Install dependencies:
 
-bash
-Copy
-Edit
-pip install -r requirements.txt
-Run the Flask app:
+    ```bash
+    pip install -r requirements.txt
+    Run the Flask app:
 
 📬 Feedback
 Fill out the feedback form on the site. Data is collected for demo only and is not publicly shared.
